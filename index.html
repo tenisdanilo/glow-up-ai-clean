@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Up AI - Studio Híbrido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            margin-top: 40px;
+        }
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #f8fafc;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-text {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+        .btn-text:hover {
+            background-color: #0ea5e9;
+        }
+        .btn-image {
+            background-color: #4ade80;
+            color: #0f172a;
+        }
+        .btn-image:hover {
+            background-color: #22c55e;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            min-height: 100px;
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .result-box img {
+            max-width: 100%;
+            border-radius: 6px;
+            display: block;
+            margin: 0 auto;
+        }
+        .error {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Glow Up AI Studio</h1>
+        
+        <textarea id="promptInput" placeholder="Escribe tu idea o guion aquí..."></textarea>
+        
+        <div class="button-group">
+            <button class="btn-text" onclick="generateContent('text')">Generar Texto (OpenAI)</button>
+            <button class="btn-image" onclick="generateContent('image')">Crear Imagen</button>
+        </div>
+
+        <div id="resultBox" class="result-box">El resultado aparecerá aquí...</div>
+    </div>
+
+    <script>
+        async function generateContent(type) {
+            const prompt = document.getElementById('promptInput').value.trim();
+            const resultBox = document.getElementById('resultBox');
+
+            if (!prompt) {
+                resultBox.innerHTML = '<span class="error">Por favor, escribe algo primero.</span>';
+                return;
+            }
+
+            resultBox.innerHTML = 'Generando... por favor espera...';
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, type })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error en el servidor');
+                }
+
+                if (type === 'image') {
+                    resultBox.innerHTML = `<img src="${data.result}" alt="Imagen generada por IA">`;
+                } else {
+                    resultBox.innerText = data.result;
+                }
+
+            } catch (err) {
+                resultBox.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
