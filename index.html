@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlowUp Studio AI - Plataforma de Creación Multimedia</title>
+    <title>GlowUp Studio AI - Plataforma Multimedia</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,36 +11,36 @@
             padding: 0;
         }
         body {
-            /* Imagen de fondo profesional con capa oscura translúcida */
-            background: linear-gradient(rgba(11, 15, 25, 0.85), rgba(11, 15, 25, 0.92)), 
-                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+            /* Capa oscura muy sutil (0.25) para que tu imagen fondo.jpg luzca clara, viva y brillante */
+            background: linear-gradient(rgba(10, 10, 15, 0.25), rgba(10, 10, 15, 0.35)), 
+                        url('fondo.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: #f3f4f6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         header {
-            background: rgba(17, 24, 39, 0.9);
+            background: rgba(15, 15, 25, 0.75);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(31, 41, 55, 0.8);
-            padding: 15px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 18px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .logo {
-            font-size: 1.25rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #4285F4, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
         }
         .main-container {
             flex: 1;
-            padding: 30px;
-            max-width: 1000px;
+            padding: 35px;
+            max-width: 1050px;
             margin: 0 auto;
             width: 100%;
             display: flex;
@@ -48,28 +48,29 @@
             gap: 25px;
         }
         .studio-card {
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(55, 65, 81, 0.6);
+            background: rgba(15, 15, 25, 0.75);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
         .studio-card h3 {
-            color: #4285F4;
-            font-size: 1.3rem;
-            margin-bottom: 6px;
+            color: #c084fc;
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         .studio-card p {
-            color: #9ca3af;
-            font-size: 0.9rem;
+            color: #e5e7eb;
+            font-size: 0.95rem;
             margin-bottom: 15px;
         }
         textarea, input[type="text"] {
             width: 100%;
-            background: rgba(31, 41, 55, 0.8);
+            background: rgba(10, 10, 20, 0.85);
             color: #fff;
-            border: 1px solid #4b5563;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             padding: 12px;
             font-size: 1rem;
@@ -78,25 +79,28 @@
             margin-bottom: 12px;
         }
         textarea {
-            height: 80px;
+            height: 85px;
             resize: none;
         }
         textarea:focus, input[type="text"]:focus {
-            border-color: #4285F4;
+            border-color: #c084fc;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
         }
         .btn-action {
-            background: linear-gradient(135deg, #4285F4, #a855f7);
+            background: linear-gradient(135deg, #9333ea, #4f46e5);
             color: #fff;
             border: none;
-            padding: 12px 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
+            padding: 12px 22px;
+            font-size: 1rem;
+            font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
-            transition: opacity 0.2s, transform 0.1s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
         }
         .btn-action:hover {
-            opacity: 0.9;
+            opacity: 0.92;
+            transform: translateY(-1px);
         }
         .btn-action:active {
             transform: scale(0.98);
@@ -105,10 +109,10 @@
             margin-top: 15px;
             display: none;
             text-align: center;
-            background: rgba(31, 41, 55, 0.9);
+            background: rgba(10, 10, 20, 0.9);
             padding: 15px;
             border-radius: 8px;
-            border: 1px dashed #4b5563;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
         }
         video, img {
             width: 100%;
@@ -117,11 +121,11 @@
             object-fit: cover;
             background: #000;
         }
-        /* Estilos del Timeline */
+        /* Estilos del Timeline Profesional */
         .timeline-container {
-            background: rgba(11, 15, 25, 0.9);
-            border: 1px solid rgba(31, 41, 55, 0.8);
-            border-radius: 8px;
+            background: rgba(10, 10, 18, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             padding: 15px;
             margin-top: 15px;
             display: flex;
@@ -132,36 +136,36 @@
         .track {
             display: flex;
             align-items: center;
-            background: rgba(22, 30, 46, 0.9);
+            background: rgba(25, 25, 40, 0.85);
             border-radius: 6px;
-            height: 50px;
-            padding: 0 10px;
-            border-left: 4px solid #4285F4;
+            height: 52px;
+            padding: 0 12px;
+            border-left: 4px solid #c084fc;
         }
         .track.audio {
-            border-left-color: #34A853;
+            border-left-color: #34d399;
         }
         .track-label {
-            width: 110px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #9ca3af;
+            width: 120px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e5e7eb;
         }
         .clip-item {
-            background: rgba(66, 133, 244, 0.25);
-            border: 1px solid #4285F4;
+            background: rgba(168, 85, 247, 0.3);
+            border: 1px solid #c084fc;
             color: #fff;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 320px;
+            max-width: 340px;
         }
         .track.audio .clip-item {
-            background: rgba(52, 168, 83, 0.25);
-            border-color: #34A853;
+            background: rgba(52, 211, 153, 0.3);
+            border-color: #34d399;
         }
     </style>
 </head>
@@ -169,39 +173,39 @@
 
     <header>
         <div class="logo">✨ GlowUp Studio AI</div>
-        <div style="font-size: 0.85rem; color: #9ca3af;">Workspace Profesional</div>
+        <div style="font-size: 0.9rem; color: #e5e7eb; font-weight: 500;">Estudio de Creación Multimedia</div>
     </header>
 
     <div class="main-container">
         
-        <!-- MÓDULO 1: CREACIÓN DE TEXTO E IMAGEN -->
+        <!-- MÓDULO 1: TEXTO E IMAGEN -->
         <div class="studio-card">
-            <h3>🎨 Generador de Texto e Imagen AI</h3>
-            <p>Crea contenidos visuales y descripciones creativas al instante.</p>
-            <textarea id="textPrompt" placeholder="Escribe tu idea, guion o descripción para generar texto o imagen..."></textarea>
+            <h3>🎨 Generación de Texto & Imagen</h3>
+            <p>Crea conceptos visuales y estructurados mediante inteligencia artificial avanzada.</p>
+            <textarea id="textPrompt" placeholder="Describe tu idea creativa o prompt de diseño..."></textarea>
             <button class="btn-action" onclick="generateContent()">Generar Contenido ⚡</button>
             <div class="output-box" id="textOutputBox">
                 <p id="textResultText" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
             </div>
         </div>
 
-        <!-- MÓDULO 2: GENERADOR DE VÍDEO CON IA -->
+        <!-- MÓDULO 2: VÍDEO CON IA -->
         <div class="studio-card">
-            <h3>🎬 Generador de Vídeo IA</h3>
-            <p>Describe una escena cinematográfica para renderizar clips impulsados por modelos avanzados.</p>
-            <textarea id="aiPrompt" placeholder="Ej: Un plano secuencia sobrevolando un cañón futurista con luces de neón..."></textarea>
-            <button class="btn-action" id="generateBtn" onclick="generateVideo()">Generar Vídeo 🚀</button>
+            <h3>🎬 Generador de Vídeo Inteligente</h3>
+            <p>Transforma descripciones en secuencias de vídeo cinematográficas en alta definición.</p>
+            <textarea id="aiPrompt" placeholder="Ej: Un plano detalle de una estación espacial orbitando un planeta lejano con destellos solares..."></textarea>
+            <button class="btn-action" id="generateBtn" onclick="generateVideo()">Generar Vídeo con IA 🚀</button>
 
             <div class="output-box" id="outputBox">
-                <p id="statusText" style="color: #FBBC05; margin-bottom: 10px; font-weight: 500;">⏳ Renderizando fotogramas con IA...</p>
+                <p id="statusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Renderizando fotogramas con modelos de IA...</p>
                 <video id="resultVideo" controls style="display: none;"></video>
             </div>
         </div>
 
         <!-- MÓDULO 3: TIMELINE / LÍNEA DE TIEMPO -->
         <div class="studio-card">
-            <h3 style="color: #a855f7;">Línea de Tiempo (Timeline)</h3>
-            <p>Secuencia tus creaciones para la postproducción de vídeo y audio.</p>
+            <h3 style="color: #38bdf8;">Línea de Tiempo (Timeline Editor)</h3>
+            <p>Sincroniza y organiza tus pistas de vídeo y audio para la postproducción final.</p>
             
             <div class="timeline-container">
                 <div class="track">
@@ -225,12 +229,12 @@
             const resultText = document.getElementById('textResultText');
 
             if (!prompt) {
-                alert('Por favor, introduce algún texto o concepto.');
+                alert('Por favor, introduce algún concepto o texto.');
                 return;
             }
 
             box.style.display = 'block';
-            resultText.innerHTML = '✨ <strong>Resultado Generado:</strong> "' + prompt + '" procesado correctamente con éxito por la IA de texto.';
+            resultText.innerHTML = '✨ <strong>Resultado Generado:</strong> "' + prompt + '" procesado con éxito en el estudio.';
         }
 
         function generateVideo() {
@@ -242,7 +246,7 @@
             const timelineClip = document.getElementById('timelineClip');
 
             if (!prompt) {
-                alert('Por favor, introduce una descripción para generar el vídeo.');
+                alert('Por favor, describe la escena para generar el vídeo.');
                 return;
             }
 
@@ -261,7 +265,7 @@
                 
                 btn.disabled = false;
                 btn.style.opacity = '1';
-            }, 3000);
+            }, 3200);
         }
     </script>
 </body>
