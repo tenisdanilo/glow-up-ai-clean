@@ -3,129 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow Up AI - Studio Híbrido</title>
+    <title>Glow Up AI Studio</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            position: relative;
+            background-color: #0b0f19;
+            /* Intentará cargar fondo.jpg, pero si no está, usará un fondo espacial por defecto */
+            background-image: url('fondo.jpg'), linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #3b0764 100%);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
         }
-        .container {
-            max-width: 600px;
-            width: 100%;
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            text-align: center;
-            margin-top: 40px;
+
+        /* Capa oscura translúcida para dar profundidad y resaltar la interfaz */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 5, 20, 0.4);
+            z-index: -1;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            color: #422006;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
+            letter-spacing: 0.5px;
+            z-index: 1;
         }
         h1 {
-            color: #38bdf8;
+            color: #ffffff;
+            font-size: 3rem;
+            margin: 0 0 8px 0;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.9), 0 0 30px rgba(34, 211, 238, 0.6), 0 2px 10px rgba(0,0,0,0.9);
+            font-weight: 800;
+            letter-spacing: 1px;
+            z-index: 1;
+        }
+        .subtitle {
+            color: #f8fafc;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+            font-weight: 500;
+            z-index: 1;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(55, 12, 75, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             margin-bottom: 20px;
         }
-        textarea {
-            width: 100%;
-            height: 120px;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: #f8fafc;
-            font-size: 16px;
-            resize: vertical;
-            box-sizing: border-box;
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+        .input-group {
+            text-align: left;
             margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 0.95rem;
+            color: #f3e8ff;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+        select, textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(30, 10, 45, 0.8);
+            color: #f8fafc;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.2s;
+        }
+        select:focus, textarea:focus {
+            border-color: #22d3ee;
+            background: rgba(30, 10, 45, 0.95);
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
         }
         .button-group {
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-top: 10px;
         }
         button {
             flex: 1;
-            padding: 12px 20px;
+            padding: 14px 20px;
             font-size: 16px;
             font-weight: bold;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
         .btn-text {
-            background-color: #38bdf8;
-            color: #0f172a;
+            background: linear-gradient(135deg, #d946ef 0%, #9333ea 100%);
+            color: white;
         }
         .btn-text:hover {
-            background-color: #0ea5e9;
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(217, 70, 239, 0.5);
         }
         .btn-image {
-            background-color: #4ade80;
-            color: #0f172a;
+            background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 100%);
+            color: #082f49;
         }
         .btn-image:hover {
-            background-color: #22c55e;
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(6, 182, 212, 0.5);
         }
         .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            background: #0f172a;
-            border-radius: 8px;
-            border: 1px solid #475569;
-            min-height: 100px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(30, 10, 45, 0.8);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            min-height: 120px;
             text-align: left;
             white-space: pre-wrap;
             word-break: break-word;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
         .result-box img {
             max-width: 100%;
-            border-radius: 6px;
+            border-radius: 8px;
             display: block;
             margin: 0 auto;
         }
         .error {
-            color: #f87171;
+            color: #fca5a5;
         }
     </style>
 </head>
 <body>
 
+    <div class="badge">✨ MULTI-IA & MULTIMEDIA</div>
+    <h1>Glow Up AI</h1>
+    <div class="subtitle">Eleva tus proyectos con guiones inteligentes, imágenes asombrosas y magia creativa.</div>
+
     <div class="container">
-        <h1>Glow Up AI Studio</h1>
-        
-        <textarea id="promptInput" placeholder="Escribe tu idea o guion aquí..."></textarea>
-        
-        <div class="button-group">
-            <button class="btn-text" onclick="generateContent('text')">Generar Texto (OpenAI)</button>
-            <button class="btn-image" onclick="generateContent('image')">Crear Imagen</button>
+        <div class="form-grid">
+            <div class="input-group">
+                <label>1. Elige tu Cerebro (Modelo de IA)</label>
+                <select id="modelSelect">
+                    <option value="gpt-4o-mini">OpenAI (GPT-4o / GPT-3.5)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>2. ¿Qué deseas crear?</label>
+                <select id="taskSelect">
+                    <option value="script">Guión Completo para Vídeo</option>
+                    <option value="ideas">Lluvia de Ideas Creativas</option>
+                    <option value="summary">Resumen o Análisis</option>
+                </select>
+            </div>
         </div>
 
-        <div id="resultBox" class="result-box">El resultado aparecerá aquí...</div>
+        <div class="input-group">
+            <label>3. Describe tu idea o concepto</label>
+            <textarea id="promptInput" placeholder="Ej: Un cortometraje de ciencia ficción sobre una máquina del tiempo en una bodega de vino..."></textarea>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-text" onclick="generateContent('text')">✨ Generar Contenido</button>
+            <button class="btn-image" onclick="generateContent('image')">📷 Crear Imagen AI</button>
+        </div>
+
+        <div id="resultBox" class="result-box" style="color: #cbd5e1;">El resultado aparecerá aquí...</div>
     </div>
 
     <script>
         async function generateContent(type) {
-            const prompt = document.getElementById('promptInput').value.trim();
+            const promptInput = document.getElementById('promptInput').value.trim();
+            const taskType = document.getElementById('taskSelect').value;
             const resultBox = document.getElementById('resultBox');
 
-            if (!prompt) {
-                resultBox.innerHTML = '<span class="error">Por favor, escribe algo primero.</span>';
+            if (!promptInput) {
+                resultBox.innerHTML = '<span class="error">Por favor, escribe una descripción o idea primero.</span>';
                 return;
             }
 
-            resultBox.innerHTML = 'Generando... por favor espera...';
+            let finalPrompt = promptInput;
+            if (type === 'text') {
+                if (taskType === 'script') {
+                    finalPrompt = `Redacta un guión completo y profesional para vídeo basado en la siguiente idea: ${promptInput}`;
+                } else if (taskType === 'ideas') {
+                    finalPrompt = `Genera una lista detallada de ideas creativas y enfoques para el siguiente concepto: ${promptInput}`;
+                } else if (taskType === 'summary') {
+                    finalPrompt = `Analiza y redacta un resumen estructurado sobre el siguiente tema: ${promptInput}`;
+                }
+            }
+
+            resultBox.style.color = '#f8fafc';
+            resultBox.innerHTML = 'Generando contenido con IA... por favor espera...';
 
             try {
                 const response = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, type })
+                    body: JSON.stringify({ prompt: finalPrompt, type })
                 });
 
                 const data = await response.json();
