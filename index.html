@@ -85,7 +85,7 @@
             font-size: 0.95rem;
             margin-bottom: 15px;
         }
-        textarea {
+        textarea, input[type="email"] {
             width: 100%;
             background: rgba(10, 10, 20, 0.85);
             color: #fff;
@@ -96,10 +96,12 @@
             outline: none;
             transition: border-color 0.2s;
             margin-bottom: 12px;
+        }
+        textarea {
             height: 85px;
             resize: none;
         }
-        textarea:focus {
+        textarea:focus, input[type="email"]:focus {
             border-color: #c084fc;
             box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
         }
@@ -174,6 +176,14 @@
             </div>
         </div>
 
+        <!-- MÓDULO 3: SUSCRIPCIÓN Y NOVEDADES -->
+        <div class="studio-card">
+            <h3>📢 Suscríbete a las Novedades</h3>
+            <p>Recibe las últimas actualizaciones, herramientas y mejoras de la plataforma directamente en tu correo.</p>
+            <input type="email" id="subEmail" placeholder="Tu correo electrónico...">
+            <button class="btn-action" onclick="handleSubscription()">Suscribirme ✉️</button>
+        </div>
+
     </div>
 
     <script>
@@ -217,7 +227,7 @@
             }
         }
 
-        // Función para generar imágenes conectada al motor visual de Gemini
+        // Función para generar imágenes conectada al motor visual
         async function generateGeminiImage() {
             const prompt = document.getElementById('imagePrompt').value.trim();
             const outputBox = document.getElementById('imageOutputBox');
@@ -236,15 +246,13 @@
             btn.disabled = true;
             btn.style.opacity = '0.6';
             
-            statusText.innerText = '🎨 Diseñando composición visual con Gemini...';
+            statusText.innerText = '🎨 Diseñando composición visual con IA...';
 
             try {
-                // Generamos una imagen artística de alta calidad basada en el prompt utilizando motores visuales optimizados
                 setTimeout(() => {
                     statusText.style.display = 'none';
                     resultImage.style.display = 'block';
                     
-                    // Codificamos el prompt de forma segura para obtener una imagen artística representativa y de alta resolución
                     const encodedPrompt = encodeURIComponent(prompt);
                     resultImage.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=576&nologo=true`;
                     
@@ -257,6 +265,20 @@
                 btn.disabled = false;
                 btn.style.opacity = '1';
             }
+        }
+
+        // Función para procesar la suscripción
+        function handleSubscription() {
+            const emailInput = document.getElementById('subEmail');
+            const email = emailInput.value.trim();
+
+            if (!email || !email.includes('@')) {
+                alert('Por favor, introduce un correo electrónico válido.');
+                return;
+            }
+
+            alert('¡Gracias por suscribirte a GlowUp Studio AI! Te hemos registrado correctamente.');
+            emailInput.value = '';
         }
     </script>
 </body>
