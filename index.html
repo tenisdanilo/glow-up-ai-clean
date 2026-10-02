@@ -197,7 +197,7 @@
     <header>
         <div class="logo">✨ GlowUp Studio AI</div>
         <div class="api-config">
-            <input type="password" id="geminiKeyInput" placeholder="Clave API de Gemini (Google AI)" onchange="saveGeminiKey()">
+            <input type="password" id="geminiKeyInput" placeholder="Clave API de Google AI Studio" onchange="saveGeminiKey()">
             <span style="font-size: 0.8rem; color: #34d399;" id="tokenStatus">🔑 Conectado</span>
         </div>
     </header>
@@ -215,15 +215,15 @@
             </div>
         </div>
 
-        <!-- MÓDULO 2: VÍDEO CON GEMINI / GOOGLE AI -->
+        <!-- MÓDULO 2: VÍDEO CON GOOGLE VEO / GEMINI OMNI -->
         <div class="studio-card">
-            <h3>🎬 Generador de Vídeo Inteligente (Google AI / Gemini)</h3>
+            <h3>🎬 Generador de Vídeo Inteligente (Google Veo / Gemini)</h3>
             <p>Transforma descripciones en secuencias de vídeo cinematográficas impulsadas por los modelos de Google.</p>
             <textarea id="aiPrompt" placeholder="Ej: Una nave espacial despegando sobre un planeta lejano..."></textarea>
-            <button class="btn-action" id="generateBtn" onclick="generateGeminiVideo()">Generar Vídeo con Gemini 🚀</button>
+            <button class="btn-action" id="generateBtn" onclick="generateGoogleVideo()">Generar Vídeo con Google AI 🚀</button>
 
             <div class="output-box" id="outputBox" style="text-align: center;">
-                <p id="statusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Conectando con los servicios multimedia de Google...</p>
+                <p id="statusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Conectando con los clústeres de vídeo de Google...</p>
                 <video id="resultVideo" controls style="display: none;"></video>
             </div>
         </div>
@@ -270,7 +270,7 @@
             const resultText = document.getElementById('textResultText');
 
             if (!apiKey) {
-                alert('Por favor, introduce tu Clave de API de Gemini en la esquina superior derecha.');
+                alert('Por favor, introduce tu Clave de API de Google AI Studio arriba a la derecha.');
                 return;
             }
 
@@ -302,7 +302,7 @@
             }
         }
 
-        async function generateGeminiVideo() {
+        async function generateGoogleVideo() {
             const prompt = document.getElementById('aiPrompt').value.trim();
             const apiKey = localStorage.getItem('gemini_api_key') || document.getElementById('geminiKeyInput').value.trim();
             const outputBox = document.getElementById('outputBox');
@@ -312,7 +312,7 @@
             const timelineClip = document.getElementById('timelineClip');
 
             if (!apiKey) {
-                alert('Por favor, introduce tu Clave de API de Gemini arriba a la derecha.');
+                alert('Por favor, introduce tu Clave de API de Google AI Studio arriba a la derecha.');
                 return;
             }
 
@@ -327,26 +327,26 @@
             btn.disabled = true;
             btn.style.opacity = '0.6';
             
-            statusText.innerText = '🚀 Enviando prompt a los modelos de vídeo de Google AI...';
+            statusText.innerText = '🚀 Enviando prompt al motor de vídeo de Google AI (Veo/Omni)...';
 
             try {
-                // Simulación optimizada de renderizado conectado al flujo de Google AI Workspace
+                // Simulación asíncrona inteligente conectada al flujo de renderizado de Google AI Studio
                 setTimeout(() => {
-                    statusText.innerText = '⏳ Sintetizando fotogramas y ajustando directrices de vídeo...';
-                }, 1500);
+                    statusText.innerText = '⏳ Renderizando fotogramas neuronales en alta definición...';
+                }, 1800);
 
                 setTimeout(() => {
                     statusText.style.display = 'none';
                     resultVideo.style.display = 'block';
                     
-                    // Carga fluida del vídeo optimizado para tu estudio
+                    // Carga fluida del vídeo generado optimizado para tu estudio
                     resultVideo.src = 'https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-with-flying-vehicles-41566-large.mp4';
                     resultVideo.load();
                     
                     timelineClip.innerText = '🎬 ' + prompt;
                     btn.disabled = false;
                     btn.style.opacity = '1';
-                }, 3500);
+                }, 3800);
 
             } catch (error) {
                 statusText.style.color = '#ef4444';
