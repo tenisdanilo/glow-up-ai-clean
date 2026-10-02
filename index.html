@@ -260,11 +260,12 @@
             setTimeout(() => {
                 statusText.style.display = 'none';
                 resultVideo.style.display = 'block';
-                // Vídeo cinemático de alta calidad de ejemplo listo para reproducir
-                resultVideo.src = 'https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-with-flying-vehicles-41566-large.mp4';
-                resultVideo.play();
                 
-                // Actualiza dinámicamente el timeline con el texto exacto que escribió el usuario
+                // Asignación segura y limpia del vídeo de muestra
+                resultVideo.src = 'https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-with-flying-vehicles-41566-large.mp4';
+                resultVideo.load();
+                
+                // Actualiza el timeline con el texto introducido
                 timelineClip.innerText = '🎬 ' + prompt;
                 
                 btn.disabled = false;
