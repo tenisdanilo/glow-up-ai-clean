@@ -138,51 +138,6 @@
             object-fit: cover;
             background: #000;
         }
-        .timeline-container {
-            background: rgba(10, 10, 18, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            overflow-x: auto;
-        }
-        .track {
-            display: flex;
-            align-items: center;
-            background: rgba(25, 25, 40, 0.85);
-            border-radius: 6px;
-            height: 52px;
-            padding: 0 12px;
-            border-left: 4px solid #c084fc;
-        }
-        .track.audio {
-            border-left-color: #34d399;
-        }
-        .track-label {
-            width: 120px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #e5e7eb;
-        }
-        .clip-item {
-            background: rgba(168, 85, 247, 0.3);
-            border: 1px solid #c084fc;
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 400px;
-        }
-        .track.audio .clip-item {
-            background: rgba(52, 211, 153, 0.3);
-            border-color: #34d399;
-        }
     </style>
 </head>
 <body>
@@ -194,12 +149,12 @@
 
     <div class="main-container">
         
-        <!-- MÓDULO 1: GENERACIÓN DE TEXTO & IMAGEN (OPENAI & GEMINI) -->
+        <!-- MÓDULO 1: GENERACIÓN DE TEXTO & GUIONES CON OPENAI -->
         <div class="studio-card">
-            <h3>🎨 Generación de Texto & Conceptos Visuales</h3>
-            <p>Crea guiones, conceptos creativos y estructuras para tus producciones con IA avanzada.</p>
-            <textarea id="textPrompt" placeholder="Describe tu idea creativa, guion o prompt de diseño..."></textarea>
-            <button class="btn-action" onclick="generateMultiAIContent()">Generar Contenido ⚡</button>
+            <h3>🎨 Guionización & Conceptos con OpenAI</h3>
+            <p>Genera guiones, ideas creativas y estructuras profesionales conectadas directamente con OpenAI.</p>
+            <textarea id="textPrompt" placeholder="Ej: Escribe un guion corto sobre un viaje espacial..."></textarea>
+            <button class="btn-action" id="textBtn" onclick="generateOpenAIContent()">Generar con OpenAI ⚡</button>
             <div class="output-box" id="textOutputBox">
                 <p id="textResultText" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
             </div>
@@ -218,32 +173,15 @@
             </div>
         </div>
 
-        <!-- MÓDULO 3: TIMELINE / LÍNEA DE TIEMPO -->
-        <div class="studio-card">
-            <h3 style="color: #38bdf8;">Línea de Tiempo (Timeline Editor)</h3>
-            <p>Sincroniza y organiza tus pistas de vídeo y audio para la postproducción final.</p>
-            
-            <div class="timeline-container">
-                <div class="track">
-                    <div class="track-label">🎥 Pista Vídeo 1</div>
-                    <div class="clip-item" id="timelineClip">Clip Generado: [Esperando renderización...]</div>
-                </div>
-
-                <div class="track audio">
-                    <div class="track-label">🎵 Pista Audio</div>
-                    <div class="clip-item">Ambiente Zen & Meditación (DY Studio)</div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        // Función inteligente para procesar contenido de texto y guiones creativos
-        function generateMultiAIContent() {
+        // Función conectada al servidor seguro de Vercel para OpenAI
+        async function generateOpenAIContent() {
             const prompt = document.getElementById('textPrompt').value.trim();
             const box = document.getElementById('textOutputBox');
             const resultText = document.getElementById('textResultText');
+            const btn = document.getElementById('textBtn');
 
             if (!prompt) {
                 alert('Por favor, introduce algún concepto o guion.');
@@ -251,13 +189,31 @@
             }
 
             box.style.display = 'block';
-            resultText.innerHTML = '✨ <strong>Estructurando con OpenAI & Gemini AI:</strong> Optimizando concepto creativo para tus producciones...';
+            resultText.innerHTML = '✨ <strong>Consultando a OpenAI:</strong> Procesando tu solicitud...';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
 
-            setTimeout(() => {
-                resultText.innerHTML = `✨ <strong>Concepto y Guion Generado:</strong><br><br>` +
-                    `<strong>Propuesta Creativa:</strong> ${prompt}<br>` +
-                    `<strong>Estructura de Escena:</strong> Secuencias optimizadas para el estudio multimedia y listas para producción en alta definición.`;
-            }, 1200);
+            try {
+                const response = await fetch('/api/generate-text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                resultText.innerHTML = '✨ <strong>Respuesta de OpenAI:</strong><br><br>' + data.text.replace(/\n/g, '<br>');
+
+            } catch (error) {
+                resultText.innerHTML = '❌ <strong>Error de conexión con OpenAI:</strong> ' + error.message;
+            } finally {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
         }
 
         // Función para generar vídeos reales a través del servidor seguro de Vercel
@@ -267,7 +223,6 @@
             const statusText = document.getElementById('statusText');
             const resultVideo = document.getElementById('resultVideo');
             const btn = document.getElementById('generateBtn');
-            const timelineClip = document.getElementById('timelineClip');
 
             if (!prompt) {
                 alert('Por favor, describe la escena para generar el vídeo.');
@@ -299,8 +254,6 @@
                 resultVideo.style.display = 'block';
                 resultVideo.src = data.videoUrl;
                 resultVideo.load();
-                
-                timelineClip.innerText = '🎬 ' + prompt;
 
             } catch (error) {
                 statusText.style.color = '#ef4444';
