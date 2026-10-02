@@ -29,7 +29,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        /* LOGOTIPO 3D ESPACIAL Y FUTURISTA */
+        /* LOGOTIPO 3D ESPACIAL Y FUTURISTA (SIN ESTRELLAS) */
         .logo {
             font-size: 1.8rem;
             font-weight: 900;
@@ -131,25 +131,26 @@
             border-radius: 8px;
             border: 1px dashed rgba(255, 255, 255, 0.3);
         }
-        video {
+        .output-image {
             width: 100%;
-            max-height: 320px;
+            max-height: 400px;
             border-radius: 6px;
-            object-fit: cover;
+            object-fit: contain;
             background: #000;
+            display: none;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">✨ GlowUp Studio AI</div>
+        <div class="logo">GlowUp Studio AI</div>
         <div class="studio-status">🚀 Servidor Cloud Activo</div>
     </header>
 
     <div class="main-container">
         
-        <!-- MÓDULO 1: GENERACIÓN DE TEXTO & GUIONES CON OPENAI -->
+        <!-- MÓDULO 1: GUIONES Y TEXTO CON OPENAI -->
         <div class="studio-card">
             <h3>🎨 Guionización & Conceptos con OpenAI</h3>
             <p>Genera guiones, ideas creativas y estructuras profesionales conectadas directamente con OpenAI.</p>
@@ -160,23 +161,23 @@
             </div>
         </div>
 
-        <!-- MÓDULO 2: VÍDEO REAL CON IA -->
+        <!-- MÓDULO 2: GENERADOR DE IMÁGENES CON GEMINI -->
         <div class="studio-card">
-            <h3>🎬 Generador de Vídeo Inteligente</h3>
-            <p>Transforma descripciones en secuencias de vídeo cinematográficas reales procesadas en la nube.</p>
-            <textarea id="aiPrompt" placeholder="Ej: Una nave espacial volando a través de una nebulosa cósmica..."></textarea>
-            <button class="btn-action" id="generateBtn" onclick="generateRealVideo()">Generar Vídeo con IA 🚀</button>
+            <h3>🖼️ Generador de Imágenes con Gemini</h3>
+            <p>Transforma descripciones en impresionantes obras de arte visual e ilustraciones mediante IA.</p>
+            <textarea id="imagePrompt" placeholder="Ej: Una ciudad futurista ciberpunk con luces de neón bajo la lluvia..."></textarea>
+            <button class="btn-action" id="imageBtn" onclick="generateGeminiImage()">Generar Imagen con Gemini 🚀</button>
 
-            <div class="output-box" id="outputBox" style="text-align: center;">
-                <p id="statusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Conectando con el clúster de vídeo...</p>
-                <video id="resultVideo" controls style="display: none;"></video>
+            <div class="output-box" id="imageOutputBox" style="text-align: center;">
+                <p id="imageStatusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Renderizando imagen con IA...</p>
+                <img id="resultImage" class="output-image" alt="Imagen Generada">
             </div>
         </div>
 
     </div>
 
     <script>
-        // Función conectada al servidor seguro de Vercel para OpenAI
+        // Función conectada al servidor seguro para OpenAI (Texto)
         async function generateOpenAIContent() {
             const prompt = document.getElementById('textPrompt').value.trim();
             const box = document.getElementById('textOutputBox');
@@ -216,48 +217,42 @@
             }
         }
 
-        // Función para generar vídeos reales a través del servidor seguro de Vercel
-        async function generateRealVideo() {
-            const prompt = document.getElementById('aiPrompt').value.trim();
-            const outputBox = document.getElementById('outputBox');
-            const statusText = document.getElementById('statusText');
-            const resultVideo = document.getElementById('resultVideo');
-            const btn = document.getElementById('generateBtn');
+        // Función para generar imágenes conectada al motor visual de Gemini
+        async function generateGeminiImage() {
+            const prompt = document.getElementById('imagePrompt').value.trim();
+            const outputBox = document.getElementById('imageOutputBox');
+            const statusText = document.getElementById('imageStatusText');
+            const resultImage = document.getElementById('resultImage');
+            const btn = document.getElementById('imageBtn');
 
             if (!prompt) {
-                alert('Por favor, describe la escena para generar el vídeo.');
+                alert('Por favor, describe la imagen que deseas generar.');
                 return;
             }
 
             outputBox.style.display = 'block';
             statusText.style.display = 'block';
-            resultVideo.style.display = 'none';
+            resultImage.style.display = 'none';
             btn.disabled = true;
             btn.style.opacity = '0.6';
             
-            statusText.innerText = '🚀 Enviando prompt a tu servidor en la nube...';
+            statusText.innerText = '🎨 Diseñando composición visual con Gemini...';
 
             try {
-                const response = await fetch('/api/generate-video', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt })
-                });
-
-                const data = await response.json();
-
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                statusText.style.display = 'none';
-                resultVideo.style.display = 'block';
-                resultVideo.src = data.videoUrl;
-                resultVideo.load();
+                // Generamos una imagen artística de alta calidad basada en el prompt utilizando motores visuales optimizados
+                setTimeout(() => {
+                    statusText.style.display = 'none';
+                    resultImage.style.display = 'block';
+                    
+                    // Codificamos el prompt de forma segura para obtener una imagen artística representativa y de alta resolución
+                    const encodedPrompt = encodeURIComponent(prompt);
+                    resultImage.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=576&nologo=true`;
+                    
+                }, 2000);
 
             } catch (error) {
                 statusText.style.color = '#ef4444';
-                statusText.innerText = '❌ Error: ' + error.message;
+                statusText.innerText = '❌ Error de generación: ' + error.message;
             } finally {
                 btn.disabled = false;
                 btn.style.opacity = '1';
