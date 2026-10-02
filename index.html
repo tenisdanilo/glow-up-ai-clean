@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlowUp Studio AI - Plataforma Multimedia</title>
+    <title>GlowUp Studio AI - Suite de Creación Multimedia</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,7 +11,7 @@
             padding: 0;
         }
         body {
-            background: linear-gradient(rgba(10, 10, 15, 0.25), rgba(10, 10, 15, 0.35)), 
+            background: linear-gradient(rgba(10, 10, 15, 0.3), rgba(10, 10, 15, 0.4)), 
                         url('fondo.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
         header {
-            background: rgba(15, 15, 25, 0.85);
+            background: rgba(15, 15, 25, 0.9);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             padding: 20px 35px;
@@ -48,6 +48,11 @@
             transform: perspective(500px) rotateX(8deg);
         }
         .studio-status {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .badge-cloud {
             font-size: 0.85rem;
             color: #34d399;
             background: rgba(52, 211, 153, 0.1);
@@ -55,6 +60,16 @@
             padding: 6px 14px;
             border-radius: 20px;
             font-weight: 600;
+        }
+        .badge-member {
+            font-size: 0.85rem;
+            color: #c084fc;
+            background: rgba(192, 132, 252, 0.1);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
         }
         .main-container {
             flex: 1;
@@ -67,7 +82,7 @@
             gap: 25px;
         }
         .studio-card {
-            background: rgba(15, 15, 25, 0.75);
+            background: rgba(15, 15, 25, 0.78);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 25px;
@@ -85,7 +100,7 @@
             font-size: 0.95rem;
             margin-bottom: 15px;
         }
-        textarea, input[type="email"] {
+        textarea, input[type="text"] {
             width: 100%;
             background: rgba(10, 10, 20, 0.85);
             color: #fff;
@@ -96,12 +111,10 @@
             outline: none;
             transition: border-color 0.2s;
             margin-bottom: 12px;
-        }
-        textarea {
             height: 85px;
             resize: none;
         }
-        textarea:focus, input[type="email"]:focus {
+        textarea:focus, input[type="text"]:focus {
             border-color: #c084fc;
             box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
         }
@@ -124,6 +137,10 @@
         .btn-action:active {
             transform: scale(0.98);
         }
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
         .output-box {
             margin-top: 15px;
             display: none;
@@ -141,74 +158,138 @@
             background: #000;
             display: none;
         }
+        /* SECCIÓN DE MEMBRESÍA Y SUSCRIPCIÓN */
+        .membership-banner {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(79, 70, 229, 0.25));
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+        }
+        .membership-banner h3 {
+            color: #f3e8ff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .membership-banner p {
+            color: #d1d5db;
+            margin-bottom: 15px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">GlowUp Studio AI</div>
-        <div class="studio-status">🚀 Servidor Cloud Activo</div>
+        <div class="studio-status">
+            <div class="badge-cloud">🚀 Cloud Activo</div>
+            <div class="badge-member" onclick="openMembershipModal()">⭐ Acceso PRO / Suscribirse</div>
+        </div>
     </header>
 
     <div class="main-container">
         
-        <!-- MÓDULO 1: GUIONES Y TEXTO CON OPENAI -->
+        <!-- BANNER DE SUSCRIPCIÓN PRO -->
+        <div class="membership-banner">
+            <h3>Desbloquea todo el Poder Creativo de GlowUp Studio AI</h3>
+            <p>Acceso ilimitado a todas las herramientas profesionales de IA: guiones cinematográficos, optimización SEO para YouTube, prompts cinemáticos y conceptualización de libros.</p>
+            <button class="btn-action btn-gold" onclick="openMembershipModal()">Suscribirse a la Membresía Pro 💎</button>
+        </div>
+
+        <!-- MÓDULO 1: GUIONES CINEMATOGRÁFICOS -->
         <div class="studio-card">
-            <h3>🎨 Guionización & Conceptos con OpenAI</h3>
-            <p>Genera guiones, ideas creativas y estructuras profesionales conectadas directamente con OpenAI.</p>
-            <textarea id="textPrompt" placeholder="Ej: Escribe un guion corto sobre un viaje espacial..."></textarea>
-            <button class="btn-action" id="textBtn" onclick="generateOpenAIContent()">Generar con OpenAI ⚡</button>
-            <div class="output-box" id="textOutputBox">
-                <p id="textResultText" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
+            <h3>🎬 1. Generador de Guiones & Estructuras de Vídeo</h3>
+            <p>Crea ganchos virales, desarrollo por bloques y llamadas a la acción optimizadas para YouTube o cortometrajes.</p>
+            <textarea id="promptScript" placeholder="Ej: Un cortometraje de ciencia ficción sobre viajes en el tiempo en una bodega..."></textarea>
+            <button class="btn-action" id="btnScript" onclick="runAIService('script', 'promptScript', 'outputScript', 'resultScript')">Generar Guion Profesional ⚡</button>
+            <div class="output-box" id="outputScript">
+                <p id="resultScript" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
             </div>
         </div>
 
-        <!-- MÓDULO 2: GENERADOR DE IMÁGENES CON GEMINI -->
+        <!-- MÓDULO 2: PROMPTS CINEMÁTICOS SCI-FI / NATURALEZA -->
         <div class="studio-card">
-            <h3>🖼️ Generador de Imágenes con Gemini</h3>
-            <p>Transforma descripciones en impresionantes obras de arte visual e ilustraciones mediante IA.</p>
+            <h3>🌌 2. Creador de Prompts Cinemáticos Avanzados</h3>
+            <p>Diseña descripciones técnicas hiper-detalladas de iluminación, atmósfera y cámara para generación de vídeo y arte visual.</p>
+            <textarea id="promptVisual" placeholder="Ej: Paisaje zen de naturaleza con cascadas místicas y partículas cuánticas..."></textarea>
+            <button class="btn-action" id="btnVisual" onclick="runAIService('visual', 'promptVisual', 'outputVisual', 'resultVisual')">Generar Prompt Cinemático ⚡</button>
+            <div class="output-box" id="outputVisual">
+                <p id="resultVisual" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
+            </div>
+        </div>
+
+        <!-- MÓDULO 3: SEO Y TÍTULOS PARA YOUTUBE -->
+        <div class="studio-card">
+            <h3>📈 3. Optimizador de Títulos & SEO para YouTube</h3>
+            <p>Obtén opciones virales de títulos con alta tasa de clics (CTR), descripciones profesionales y etiquetas estratégicas.</p>
+            <textarea id="promptSeo" placeholder="Ej: Vídeo de sonidos relajantes y frecuencias binaurales para dormir profundamente..."></textarea>
+            <button class="btn-action" id="btnSeo" onclick="runAIService('seo', 'promptSeo', 'outputSeo', 'resultSeo')">Optimizar Metadatos YouTube ⚡</button>
+            <div class="output-box" id="outputSeo">
+                <p id="resultSeo" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
+            </div>
+        </div>
+
+        <!-- MÓDULO 4: CONCEPTUALIZACIÓN DE LIBROS Y RELATOS -->
+        <div class="studio-card">
+            <h3>📖 4. Asistente de Conceptualización de Libros & Relatos</h3>
+            <p>Estructura sinopsis profesionales, arcos de personajes y argumentos ramificados para tus obras literarias.</p>
+            <textarea id="promptBook" placeholder="Ej: Una novela corta sobre un artista autónomo que descubre un portal cuántico..."></textarea>
+            <button class="btn-action" id="btnBook" onclick="runAIService('book', 'promptBook', 'outputBook', 'resultBook')">Desarrollar Concepto Literario ⚡</button>
+            <div class="output-box" id="outputBook">
+                <p id="resultBook" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
+            </div>
+        </div>
+
+        <!-- MÓDULO 5: GENERADOR VISUAL DE IMÁGENES -->
+        <div class="studio-card">
+            <h3>🖼️ 5. Generador Visual de Imágenes con IA</h3>
+            <p>Transforma descripciones en impresionantes obras de arte visual e ilustraciones fotorrealistas.</p>
             <textarea id="imagePrompt" placeholder="Ej: Una ciudad futurista ciberpunk con luces de neón bajo la lluvia..."></textarea>
-            <button class="btn-action" id="imageBtn" onclick="generateGeminiImage()">Generar Imagen con Gemini 🚀</button>
+            <button class="btn-action" id="imageBtn" onclick="generateGeminiImage()">Renderizar Imagen con IA 🚀</button>
 
             <div class="output-box" id="imageOutputBox" style="text-align: center;">
-                <p id="imageStatusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Renderizando imagen con IA...</p>
+                <p id="imageStatusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Renderizando imagen...</p>
                 <img id="resultImage" class="output-image" alt="Imagen Generada">
             </div>
-        </div>
-
-        <!-- MÓDULO 3: SUSCRIPCIÓN Y NOVEDADES -->
-        <div class="studio-card">
-            <h3>📢 Suscríbete a las Novedades</h3>
-            <p>Recibe las últimas actualizaciones, herramientas y mejoras de la plataforma directamente en tu correo.</p>
-            <input type="email" id="subEmail" placeholder="Tu correo electrónico...">
-            <button class="btn-action" onclick="handleSubscription()">Suscribirme ✉️</button>
         </div>
 
     </div>
 
     <script>
-        // Función conectada al servidor seguro para OpenAI (Texto)
-        async function generateOpenAIContent() {
-            const prompt = document.getElementById('textPrompt').value.trim();
-            const box = document.getElementById('textOutputBox');
-            const resultText = document.getElementById('textResultText');
-            const btn = document.getElementById('textBtn');
+        // Función centralizada inteligente para conectar todos los servicios con OpenAI
+        async function runAIService(serviceType, inputId, outputBoxId, resultTextId) {
+            const promptValue = document.getElementById(inputId).value.trim();
+            const box = document.getElementById(outputBoxId);
+            const resultText = document.getElementById(resultTextId);
 
-            if (!prompt) {
-                alert('Por favor, introduce algún concepto o guion.');
+            if (!promptValue) {
+                alert('Por favor, introduce una descripción o temática.');
                 return;
             }
 
             box.style.display = 'block';
-            resultText.innerHTML = '✨ <strong>Consultando a OpenAI:</strong> Procesando tu solicitud...';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
+            resultText.innerHTML = '✨ <strong>Procesando con Inteligencia Artificial...</strong>';
+
+            // Definimos el enfoque de cada servicio para OpenAI
+            let systemContext = "";
+            if (serviceType === 'script') {
+                systemContext = "Actúa como un director de cine y guionista experto. Genera un guion estructurado con gancho inicial, desarrollo y llamada a la acción para: ";
+            } else if (serviceType === 'visual') {
+                systemContext = "Actúa como un director de fotografía experto. Genera un prompt cinemático ultra-detallado con iluminación, paleta de colores y parámetros de cámara para: ";
+            } else if (serviceType === 'seo') {
+                systemContext = "Actúa como un experto en marketing digital y crecimiento en YouTube. Proporciona 3 títulos virales con alto CTR, una descripción optimizada y etiquetas para: ";
+            } else if (serviceType === 'book') {
+                systemContext = "Actúa como un editor literario profesional. Desarrolla una sinopsis atractiva, un esquema de capítulos y arcos de personajes para: ";
+            }
 
             try {
                 const response = await fetch('/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt })
+                    body: JSON.stringify({ prompt: systemContext + promptValue })
                 });
 
                 const data = await response.json();
@@ -217,23 +298,19 @@
                     throw new Error(data.error);
                 }
 
-                resultText.innerHTML = '✨ <strong>Respuesta de OpenAI:</strong><br><br>' + data.text.replace(/\n/g, '<br>');
+                resultText.innerHTML = '✨ <strong>Resultado Generado:</strong><br><br>' + data.text.replace(/\n/g, '<br>');
 
             } catch (error) {
-                resultText.innerHTML = '❌ <strong>Error de conexión con OpenAI:</strong> ' + error.message;
-            } finally {
-                btn.disabled = false;
-                btn.style.opacity = '1';
+                resultText.innerHTML = '❌ <strong>Error de conexión:</strong> ' + error.message;
             }
         }
 
-        // Función para generar imágenes conectada al motor visual
+        // Función para generar imágenes
         async function generateGeminiImage() {
             const prompt = document.getElementById('imagePrompt').value.trim();
             const outputBox = document.getElementById('imageOutputBox');
             const statusText = document.getElementById('imageStatusText');
             const resultImage = document.getElementById('resultImage');
-            const btn = document.getElementById('imageBtn');
 
             if (!prompt) {
                 alert('Por favor, describe la imagen que deseas generar.');
@@ -243,9 +320,6 @@
             outputBox.style.display = 'block';
             statusText.style.display = 'block';
             resultImage.style.display = 'none';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
-            
             statusText.innerText = '🎨 Diseñando composición visual con IA...';
 
             try {
@@ -256,29 +330,17 @@
                     const encodedPrompt = encodeURIComponent(prompt);
                     resultImage.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=576&nologo=true`;
                     
-                }, 2000);
+                }, 1500);
 
             } catch (error) {
                 statusText.style.color = '#ef4444';
                 statusText.innerText = '❌ Error de generación: ' + error.message;
-            } finally {
-                btn.disabled = false;
-                btn.style.opacity = '1';
             }
         }
 
-        // Función para procesar la suscripción
-        function handleSubscription() {
-            const emailInput = document.getElementById('subEmail');
-            const email = emailInput.value.trim();
-
-            if (!email || !email.includes('@')) {
-                alert('Por favor, introduce un correo electrónico válido.');
-                return;
-            }
-
-            alert('¡Gracias por suscribirte a GlowUp Studio AI! Te hemos registrado correctamente.');
-            emailInput.value = '';
+        // Función para el modal de membresía y suscripción
+        function openMembershipModal() {
+            alert('💎 Membresía Pro de GlowUp Studio AI\n\nObtén acceso total a todas las herramientas de IA, generadores de guiones, optimización SEO y renderizado avanzado por solo 19€/mes.\n\n(Próximamente conectaremos este botón directamente con tu pasarela de pago en Stripe o PayPal).');
         }
     </script>
 </body>
