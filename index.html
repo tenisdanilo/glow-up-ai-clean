@@ -238,7 +238,6 @@
     </div>
 
     <script>
-        // Cargar token guardado previamente si existe
         window.onload = function() {
             const savedToken = localStorage.getItem('replicate_token');
             if (savedToken) {
@@ -295,28 +294,50 @@
             resultVideo.style.display = 'none';
             btn.disabled = true;
             btn.style.opacity = '0.6';
-            statusText.innerText = '🚀 Enviando prompt a la IA ("' + prompt + '")...';
+            statusText.innerText = '🚀 Conectando con Replicate AI para generar tu vídeo...';
 
-            // Como los navegadores bloquean llamadas directas por seguridad (CORS) a la API pura de Replicate sin un servidor intermedio,
-            // mantenemos la máxima fluidez del estudio con simulación ultra-realista conectada a tu clave.
-            setTimeout(() => {
-                statusText.innerText = '⏳ Renderizando fotogramas en la nube...';
-            }, 1500);
+            try {
+                const response = await fetch("https://api.replicate.com/v1/predictions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "wait"
+                    },
+                    body: JSON.stringify({
+                        version: "9f747673945c62801b13b84701c743929c826edd73f5e55e373404fb852ef75d", 
+                        input: {
+                            prompt: prompt
+                        }
+                    })
+                });
 
-            setTimeout(() => {
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                let videoUrl = Array.isArray(data.output) ? data.output[data.output.length - 1] : data.output;
+
+                if (!videoUrl) {
+                    throw new Error("No se pudo obtener el archivo de vídeo resultante.");
+                }
+
                 statusText.style.display = 'none';
                 resultVideo.style.display = 'block';
-                
-                // Cargamos el vídeo de alta calidad resultante del proceso conectado
-                resultVideo.src = 'https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-with-flying-vehicles-41566-large.mp4';
+                resultVideo.src = videoUrl;
                 resultVideo.load();
                 
-                // Actualiza dinámicamente el timeline con tu prompt
                 timelineClip.innerText = '🎬 ' + prompt;
-                
+
+            } catch (error) {
+                statusText.style.color = '#ef4444';
+                statusText.innerText = '❌ Error al generar: ' + error.message;
+            } finally {
                 btn.disabled = false;
                 btn.style.opacity = '1';
-            }, 3500);
+            }
         }
     </script>
 </body>
