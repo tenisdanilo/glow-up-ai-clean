@@ -70,7 +70,9 @@
             border-radius: 20px;
             font-weight: 600;
             cursor: pointer;
+            text-decoration: none;
             transition: all 0.2s;
+            display: inline-block;
         }
         .badge-member:hover {
             background: rgba(253, 224, 71, 0.2);
@@ -105,7 +107,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 15, 0.85);
+            background: rgba(10, 10, 15, 0.88);
             backdrop-filter: blur(6px);
             display: flex;
             flex-direction: column;
@@ -156,6 +158,9 @@
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         .btn-action:hover {
             opacity: 0.92;
@@ -209,7 +214,7 @@
         <div class="logo">GlowUp Studio AI</div>
         <div class="studio-status">
             <div class="badge-cloud">🚀 Cloud Activo</div>
-            <div class="badge-member" onclick="openMembershipModal()">⭐ Hazte PRO 💎</div>
+            <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="badge-member">⭐ Hazte PRO 💎</a>
         </div>
     </header>
 
@@ -218,8 +223,8 @@
         <!-- BANNER DE SUSCRIPCIÓN PRO -->
         <div class="membership-banner">
             <h3>Desbloquea el Poder Pro & Herramientas Ilimitadas</h3>
-            <p>Disfruta de uso ilimitado sin restricciones, exportación de archivos profesionales y acceso total a los 4 motores de creación avanzada de contenido.</p>
-            <button class="btn-action btn-gold" onclick="openMembershipModal()">Activar Membresía Pro (19€/mes) 💎</button>
+            <p>Disfruta de uso ilimitado sin restricciones, exportación de archivos profesionales y acceso total a los 4 motores de creación avanzada de contenido por solo 11,95€ (Oferta Fundador).</p>
+            <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Activar Membresía Pro (11,95€) 💎</a>
         </div>
 
         <!-- MÓDULO 1: PRUEBA LIBRE / GENERAL (OPENAI) -->
@@ -250,7 +255,7 @@
             <div class="lock-overlay">
                 <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
                 <p style="color: #d1d5db; margin-bottom: 15px;">Genera guiones profesionales escena por escena con acotaciones de cámara y retención avanzada.</p>
-                <button class="btn-action btn-gold" onclick="openMembershipModal()">Desbloquear con PRO 💎</button>
+                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
             </div>
             <h3>🎬 1. Generador de Guiones & Estructuras de Vídeo</h3>
             <p>Crea ganchos virales, desarrollo por bloques y llamadas a la acción optimizadas para YouTube o cortometrajes.</p>
@@ -263,7 +268,7 @@
             <div class="lock-overlay">
                 <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
                 <p style="color: #d1d5db; margin-bottom: 15px;">Crea prompts hiper-detallados de iluminación y estética cuántica/espacial para tus producciones.</p>
-                <button class="btn-action btn-gold" onclick="openMembershipModal()">Desbloquear con PRO 💎</button>
+                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
             </div>
             <h3>🌌 2. Creador de Prompts Cinemáticos Avanzados</h3>
             <p>Diseña descripciones técnicas de iluminación y atmósfera para generación de vídeo y arte visual.</p>
@@ -276,7 +281,7 @@
             <div class="lock-overlay">
                 <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
                 <p style="color: #d1d5db; margin-bottom: 15px;">Accede a títulos virales de alta conversión y metadatos optimizados para potenciar tus canales.</p>
-                <button class="btn-action btn-gold" onclick="openMembershipModal()">Desbloquear con PRO 💎</button>
+                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
             </div>
             <h3>📈 3. Optimizador de Títulos & SEO para YouTube</h3>
             <p>Obtén opciones de alta tasa de clics (CTR), descripciones profesionales y etiquetas estratégicas.</p>
@@ -289,7 +294,7 @@
             <div class="lock-overlay">
                 <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
                 <p style="color: #d1d5db; margin-bottom: 15px;">Estructura sinopsis editoriales, arcos dramáticos y argumentos complejos para tus obras.</p>
-                <button class="btn-action btn-gold" onclick="openMembershipModal()">Desbloquear con PRO 💎</button>
+                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
             </div>
             <h3>📖 4. Asistente de Conceptualización de Libros & Relatos</h3>
             <p>Estructura sinopsis profesionales y arcos de personajes para tus obras literarias.</p>
@@ -377,11 +382,6 @@
                 btn.disabled = false;
                 btn.style.opacity = '1';
             }
-        }
-
-        // Función para el modal de membresía PRO
-        function openMembershipModal() {
-            alert('💎 GlowUp Studio AI - Membresía PRO\n\nObtén acceso total e ilimitado a todas las herramientas de guiones, prompts avanzados, SEO de YouTube y conceptualización de libros por solo 19€/mes.\n\n(Próximamente conectaremos este botón directamente con tu pasarela de pagos en Stripe o PayPal).');
         }
     </script>
 </body>
