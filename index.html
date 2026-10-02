@@ -207,7 +207,7 @@
         <!-- MÓDULO 2: VÍDEO REAL CON IA -->
         <div class="studio-card">
             <h3>🎬 Generador de Vídeo con IA (Reales)</h3>
-            <p>Introduce tu prompt y el servidor de Vercel procesará la generación del vídeo real en la nube.</p>
+            <p>Introduce tu prompt y el servidor procesará la generación del vídeo en la nube.</p>
             <textarea id="aiPrompt" placeholder="Ej: Una nave espacial volando a través de una nebulosa cósmica..."></textarea>
             <button class="btn-action" id="generateBtn" onclick="generateRealVideo()">Generar Vídeo Real 🚀</button>
 
@@ -271,7 +271,7 @@
             btn.disabled = true;
             btn.style.opacity = '0.6';
             
-            statusText.innerText = '🚀 Enviando prompt a tu servidor de Vercel...';
+            statusText.innerText = '🚀 Enviando prompt a tu servidor en la nube...';
 
             try {
                 const response = await fetch('/api/generate-video', {
