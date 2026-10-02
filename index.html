@@ -11,7 +11,7 @@
             padding: 0;
         }
         body {
-            /* Capa oscura muy sutil (0.25) para que tu imagen fondo.jpg luzca clara, viva y brillante */
+            /* Fondo claro y brillante con tu imagen local 'fondo.jpg' */
             background: linear-gradient(rgba(10, 10, 15, 0.25), rgba(10, 10, 15, 0.35)), 
                         url('fondo.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -114,7 +114,7 @@
             border-radius: 8px;
             border: 1px dashed rgba(255, 255, 255, 0.3);
         }
-        video, img {
+        video {
             width: 100%;
             max-height: 320px;
             border-radius: 6px;
@@ -161,7 +161,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 340px;
+            max-width: 400px;
         }
         .track.audio .clip-item {
             background: rgba(52, 211, 153, 0.3);
@@ -193,7 +193,7 @@
         <div class="studio-card">
             <h3>🎬 Generador de Vídeo Inteligente</h3>
             <p>Transforma descripciones en secuencias de vídeo cinematográficas en alta definición.</p>
-            <textarea id="aiPrompt" placeholder="Ej: Un plano detalle de una estación espacial orbitando un planeta lejano con destellos solares..."></textarea>
+            <textarea id="aiPrompt" placeholder="Ej: Una nave espacial despega desde la ciudad..."></textarea>
             <button class="btn-action" id="generateBtn" onclick="generateVideo()">Generar Vídeo con IA 🚀</button>
 
             <div class="output-box" id="outputBox">
@@ -255,17 +255,21 @@
             resultVideo.style.display = 'none';
             btn.disabled = true;
             btn.style.opacity = '0.6';
+            statusText.innerText = '⏳ Procesando prompt: "' + prompt + '"...';
 
             setTimeout(() => {
                 statusText.style.display = 'none';
                 resultVideo.style.display = 'block';
+                // Vídeo cinemático de alta calidad de ejemplo listo para reproducir
                 resultVideo.src = 'https://assets.mixkit.co/videos/preview/mixkit-futuristic-city-with-flying-vehicles-41566-large.mp4';
+                resultVideo.play();
                 
-                timelineClip.innerText = '🎬 ' + prompt.substring(0, 35) + '...';
+                // Actualiza dinámicamente el timeline con el texto exacto que escribió el usuario
+                timelineClip.innerText = '🎬 ' + prompt;
                 
                 btn.disabled = false;
                 btn.style.opacity = '1';
-            }, 3200);
+            }, 2500);
         }
     </script>
 </body>
