@@ -1,5 +1,3 @@
-generate-text.js
-
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Método no permitido' });
@@ -7,10 +5,11 @@ export default async function handler(req, res) {
 
     try {
         const { prompt } = req.body;
-        const apiKey = process.env.OPENAI_API_KEY;
+        // Leemos exactamente el nombre de la variable que tienes creada en Vercel
+        const apiKey = process.env.CLAVE_API_DE_OPENAI;
 
         if (!apiKey) {
-            return res.status(500).json({ error: 'ERROR CRÍTICO: La variable OPENAI_API_KEY no está configurada en las Environment Variables de Vercel.' });
+            return res.status(500).json({ error: 'ERROR: La variable CLAVE_API_DE_OPENAI no está accesible para la función.' });
         }
 
         if (!prompt) {
