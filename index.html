@@ -3,385 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlowUp Studio AI - Suite de Creación Multimedia</title>
+    <title>GlowUp Studio AI - Multimedia Creation Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background: linear-gradient(rgba(10, 10, 15, 0.3), rgba(10, 10, 15, 0.4)), 
-                        url('fondo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            background: rgba(15, 15, 25, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 25px 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        /* LOGOTIPO 3D CIENCIA FICCIÓN, ROBÓTICO E IMPACTANTE (MÁS GRANDE Y SIN ESTRELLAS) */
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-transform: uppercase;
-            font-family: 'Courier New', Courier, monospace, Impact, sans-serif;
-            text-shadow: 
-                0 1px 0 #a855f7,
-                0 2px 0 #9333ea,
-                0 3px 0 #7e22ce,
-                0 4px 0 #581c87,
-                0 6px 15px rgba(168, 85, 247, 0.8),
-                0 0 30px rgba(147, 51, 234, 0.6),
-                0 0 60px rgba(52, 211, 153, 0.4);
-            transform: perspective(600px) rotateX(10deg);
-        }
-        .studio-status {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        .badge-cloud {
-            font-size: 0.85rem;
-            color: #34d399;
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-        .badge-member {
-            font-size: 0.85rem;
-            color: #fde047;
-            background: rgba(253, 224, 71, 0.1);
-            border: 1px solid rgba(253, 224, 71, 0.3);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-            display: inline-block;
-        }
-        .badge-member:hover {
-            background: rgba(253, 224, 71, 0.2);
-            transform: scale(1.05);
-        }
-        .main-container {
-            flex: 1;
-            padding: 35px;
-            max-width: 1050px;
-            margin: 0 auto;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        .studio-card {
-            background: rgba(15, 15, 25, 0.82);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-        .locked-card {
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            background: rgba(20, 15, 25, 0.88);
-        }
-        .lock-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 15, 0.88);
-            backdrop-filter: blur(6px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 14px;
-            text-align: center;
-            padding: 20px;
-            z-index: 10;
-        }
-        .studio-card h3 {
-            color: #c084fc;
-            font-size: 1.35rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        .studio-card p {
-            color: #e5e7eb;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-        textarea, input[type="text"] {
-            width: 100%;
-            background: rgba(10, 10, 20, 0.85);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            margin-bottom: 12px;
-            height: 85px;
-            resize: none;
-        }
-        textarea:focus {
-            border-color: #c084fc;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
-        }
-        .btn-action {
-            background: linear-gradient(135deg, #9333ea, #4f46e5);
-            color: #fff;
-            border: none;
-            padding: 12px 22px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        .btn-action:hover {
-            opacity: 0.92;
-            transform: translateY(-1px);
-        }
-        .btn-gold {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-        }
-        .output-box {
-            margin-top: 15px;
-            display: none;
-            text-align: left;
-            background: rgba(10, 10, 20, 0.9);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px dashed rgba(255, 255, 255, 0.3);
-        }
-        .output-image {
-            width: 100%;
-            max-height: 400px;
-            border-radius: 6px;
-            object-fit: contain;
-            background: #000;
-            display: none;
-        }
-        .membership-banner {
-            background: linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(245, 158, 11, 0.2));
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            border-radius: 14px;
-            padding: 25px;
-            text-align: center;
-        }
-        .membership-banner h3 {
-            color: #fde047;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        .membership-banner p {
-            color: #e5e7eb;
-            margin-bottom: 15px;
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #030712; color: #f3f4f6; }
+        .font-sci-fi { font-family: 'Orbitron', sans-serif; }
+        .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.25); }
+        .glow-purple { box-shadow: 0 0 25px rgba(168, 85, 247, 0.25); }
+        .cyber-border { border: 1px solid rgba(6, 182, 212, 0.3); }
+        .cyber-border-purple { border: 1px solid rgba(168, 85, 247, 0.4); }
     </style>
 </head>
-<body>
+<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
 
-    <header>
-        <div class="logo">GlowUp Studio AI</div>
-        <div class="studio-status">
-            <div class="badge-cloud">🚀 Cloud Activo</div>
-            <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="badge-member">⭐ Hazte PRO 💎</a>
+    <!-- Top Navigation -->
+    <header class="border-b border-cyan-900/40 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center font-sci-fi font-bold text-lg text-white glow-cyan">G</div>
+                <span class="font-sci-fi text-xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">GlowUp Studio AI</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs px-3 py-1 rounded-full bg-cyan-950 text-cyan-400 cyber-border font-sci-fi">Fase Fundador: 6,95€/mes</span>
+                <a href="https://buy.stripe.com/14A8wH7ds3nddCe0fu6kg00" target="_blank" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-sci-fi text-sm font-semibold transition-all shadow-lg glow-cyan">
+                    Upgrade PRO (6,95€)
+                </a>
+            </div>
         </div>
     </header>
 
-    <div class="main-container">
+    <!-- Main Workspace -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        <!-- BANNER DE SUSCRIPCIÓN PRO -->
-        <div class="membership-banner">
-            <h3>Desbloquea el Poder Pro & Herramientas Ilimitadas</h3>
-            <p>Disfruta de uso ilimitado sin restricciones, exportación de archivos profesionales y acceso total a los 4 motores de creación avanzada de contenido por solo 11,95€ (Oferta Fundador).</p>
-            <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Activar Membresía Pro (11,95€) 💎</a>
-        </div>
+        <!-- Sidebar Navigation -->
+        <aside class="lg:col-span-1 space-y-2">
+            <div class="text-xs font-sci-fi text-cyan-400 uppercase tracking-widest px-3 mb-2">Módulos Gratuitos</div>
+            <button onclick="switchTab('text-gen')" id="btn-text-gen" class="w-full text-left px-4 py-3 rounded-xl bg-cyan-950/50 cyber-border text-cyan-300 font-medium transition-all flex items-center space-x-3">
+                <span>⚡</span>
+                <span>Generador de Texto (IA)</span>
+            </button>
+            <button onclick="switchTab('image-gen')" id="btn-image-gen" class="w-full text-left px-4 py-3 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 text-slate-300 transition-all flex items-center space-x-3">
+                <span>🎨</span>
+                <span>Generador de Imágenes</span>
+            </button>
 
-        <!-- MÓDULO 1: PRUEBA LIBRE / GENERAL (OPENAI) -->
-        <div class="studio-card">
-            <h3>🎨 Asistente General con OpenAI (Libre)</h3>
-            <p>Genera ideas creativas y textos rápidos conectados directamente con OpenAI.</p>
-            <textarea id="textPrompt" placeholder="Ej: Escribe un poema corto sobre el sol..."></textarea>
-            <button class="btn-action" id="textBtn" onclick="generateOpenAIContent()">Generar con OpenAI ⚡</button>
-            <div class="output-box" id="textOutputBox">
-                <p id="textResultText" style="color: #fff; font-size: 0.95rem; line-height: 1.4;"></p>
+            <div class="text-xs font-sci-fi text-purple-400 uppercase tracking-widest px-3 mt-6 mb-2">Módulos PRO (Bloqueados)</div>
+            <button onclick="switchTab('video-engine')" id="btn-video-engine" class="w-full text-left px-4 py-3 rounded-xl bg-purple-950/20 cyber-border-purple text-purple-300 hover:bg-purple-950/40 transition-all flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span>🎬</span>
+                    <span>Motor Sci-Fi Video</span>
+                </div>
+                <span class="text-xs bg-purple-900 text-purple-200 px-2 py-0.5 rounded font-sci-fi">PRO</span>
+            </button>
+            <button onclick="switchTab('audio-studio')" id="btn-audio-studio" class="w-full text-left px-4 py-3 rounded-xl bg-purple-950/20 cyber-border-purple text-purple-300 hover:bg-purple-950/40 transition-all flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span>🎵</span>
+                    <span>Estudio de Audio & Guiones</span>
+                </div>
+                <span class="text-xs bg-purple-900 text-purple-200 px-2 py-0.5 rounded font-sci-fi">PRO</span>
+            </button>
+        </aside>
+
+        <!-- Dynamic Content Area -->
+        <section class="lg:col-span-3 bg-slate-900/60 cyber-border rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between">
+            
+            <!-- TAB 1: TEXT GEN -->
+            <div id="tab-text-gen" class="workspace-tab space-y-6">
+                <div>
+                    <h2 class="font-sci-fi text-2xl font-bold text-cyan-400">Generador de Textos y Guiones</h2>
+                    <p class="text-slate-400 text-sm mt-1">Crea contenidos optimizados para YouTube, descripciones y estructuras creativas instantáneamente.</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-sci-fi text-slate-300 uppercase mb-2">Prompt o Tema Principal</label>
+                        <textarea id="text-prompt" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-200 focus:outline-none focus:border-cyan-500 transition-all" placeholder="Ej: Guion corto sobre la exploración de exoplanetas y física cuántica..."></textarea>
+                    </div>
+                    <button onclick="generateText()" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-sci-fi font-bold transition-all shadow-lg glow-cyan">
+                        Generar Contenido
+                    </button>
+                </div>
+                <div class="mt-6">
+                    <label class="block text-xs font-sci-fi text-slate-400 uppercase mb-2">Resultado</label>
+                    <div id="text-output" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-300 min-h-[120px] whitespace-pre-wrap">El resultado generado aparecerá aquí...</div>
+                </div>
             </div>
-        </div>
 
-        <!-- MÓDULO 2: GENERADOR VISUAL DE IMÁGENES (LIBRE) -->
-        <div class="studio-card">
-            <h3>🖼️ Generador Visual de Imágenes (Libre)</h3>
-            <p>Transforma descripciones en impresionantes obras de arte visual e ilustraciones.</p>
-            <textarea id="imagePrompt" placeholder="Ej: Una ciudad futurista ciberpunk con luces de neón bajo la lluvia..."></textarea>
-            <button class="btn-action" id="imageBtn" onclick="generateGeminiImage()">Renderizar Imagen con IA 🚀</button>
-            <div class="output-box" id="imageOutputBox" style="text-align: center;">
-                <p id="imageStatusText" style="color: #fde047; margin-bottom: 10px; font-weight: 500;">⏳ Renderizando imagen...</p>
-                <img id="resultImage" class="output-image" alt="Imagen Generada">
+            <!-- TAB 2: IMAGE GEN -->
+            <div id="tab-image-gen" class="workspace-tab space-y-6 hidden">
+                <div>
+                    <h2 class="font-sci-fi text-2xl font-bold text-cyan-400">Generador Visual (Pollinations.ai)</h2>
+                    <p class="text-slate-400 text-sm mt-1">Transforma tus conceptos en imágenes cinemáticas de alta calidad en segundos.</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-sci-fi text-slate-300 uppercase mb-2">Descripción Visual (Prompt)</label>
+                        <input type="text" id="image-prompt" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-cyan-500 transition-all" placeholder="Ej: Cyberpunk neon city in Madrid style, 8k resolution, cinematic lighting">
+                    </div>
+                    <button onclick="generateImage()" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-sci-fi font-bold transition-all shadow-lg glow-cyan">
+                        Generar Imagen
+                    </button>
+                </div>
+                <div class="mt-6 flex justify-center items-center bg-slate-950 border border-slate-800 rounded-xl p-4 min-h-[250px]">
+                    <div id="image-output" class="text-slate-500 text-sm">Tu imagen generada aparecerá aquí...</div>
+                </div>
             </div>
-        </div>
 
-        <!-- MÓDULO 3: GUIONES CINEMATOGRÁFICOS (BLOQUEADO PRO) -->
-        <div class="studio-card locked-card">
-            <div class="lock-overlay">
-                <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
-                <p style="color: #d1d5db; margin-bottom: 15px;">Genera guiones profesionales escena por escena con acotaciones de cámara y retención avanzada.</p>
-                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
+            <!-- TAB 3 & 4: PRO LOCKED -->
+            <div id="tab-pro-locked" class="workspace-tab space-y-6 hidden text-center py-12">
+                <div class="max-w-md mx-auto space-y-4">
+                    <div class="w-16 h-16 bg-purple-950 cyber-border-purple rounded-2xl mx-auto flex items-center justify-center text-3xl">🔒</div>
+                    <h3 class="font-sci-fi text-2xl font-bold text-purple-300">Módulo Exclusivo PRO</h3>
+                    <p class="text-slate-400 text-sm">Desbloquea el acceso ilimitado a este motor profesional y todas las herramientas avanzadas por solo <strong>6,95€/mes</strong> (Oferta Fundador).</p>
+                    <div class="pt-4">
+                        <a href="https://buy.stripe.com/14A8wH7ds3nddCe0fu6kg00" target="_blank" class="inline-block px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-sci-fi font-bold transition-all shadow-xl glow-purple">
+                            Activar Membresía PRO (6,95€)
+                        </a>
+                    </div>
+                </div>
             </div>
-            <h3>🎬 1. Generador de Guiones & Estructuras de Vídeo</h3>
-            <p>Crea ganchos virales, desarrollo por bloques y llamadas a la acción optimizadas para YouTube o cortometrajes.</p>
-            <textarea placeholder="Bloqueado para usuarios gratuitos..."></textarea>
-            <button class="btn-action" disabled style="opacity: 0.4;">Función PRO 🔒</button>
-        </div>
 
-        <!-- MÓDULO 4: PROMPTS CINEMÁTICOS SCI-FI (BLOQUEADO PRO) -->
-        <div class="studio-card locked-card">
-            <div class="lock-overlay">
-                <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
-                <p style="color: #d1d5db; margin-bottom: 15px;">Crea prompts hiper-detallados de iluminación y estética cuántica/espacial para tus producciones.</p>
-                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
-            </div>
-            <h3>🌌 2. Creador de Prompts Cinemáticos Avanzados</h3>
-            <p>Diseña descripciones técnicas de iluminación y atmósfera para generación de vídeo y arte visual.</p>
-            <textarea placeholder="Bloqueado para usuarios gratuitos..."></textarea>
-            <button class="btn-action" disabled style="opacity: 0.4;">Función PRO 🔒</button>
-        </div>
+        </section>
+    </main>
 
-        <!-- MÓDULO 5: SEO Y TÍTULOS PARA YOUTUBE (BLOQUEADO PRO) -->
-        <div class="studio-card locked-card">
-            <div class="lock-overlay">
-                <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
-                <p style="color: #d1d5db; margin-bottom: 15px;">Accede a títulos virales de alta conversión y metadatos optimizados para potenciar tus canales.</p>
-                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
-            </div>
-            <h3>📈 3. Optimizador de Títulos & SEO para YouTube</h3>
-            <p>Obtén opciones de alta tasa de clics (CTR), descripciones profesionales y etiquetas estratégicas.</p>
-            <textarea placeholder="Bloqueado para usuarios gratuitos..."></textarea>
-            <button class="btn-action" disabled style="opacity: 0.4;">Función PRO 🔒</button>
-        </div>
-
-        <!-- MÓDULO 6: CONCEPTUALIZACIÓN DE LIBROS (BLOQUEADO PRO) -->
-        <div class="studio-card locked-card">
-            <div class="lock-overlay">
-                <h3 style="color: #fde047; font-size: 1.4rem; margin-bottom: 10px;">🔒 Módulo Exclusivo para Miembros PRO</h3>
-                <p style="color: #d1d5db; margin-bottom: 15px;">Estructura sinopsis editoriales, arcos dramáticos y argumentos complejos para tus obras.</p>
-                <a href="https://buy.stripe.com/test_cNi00b9sJghMfzcawRbwk01" target="_blank" class="btn-action btn-gold">Desbloquear con PRO (11,95€) 💎</a>
-            </div>
-            <h3>📖 4. Asistente de Conceptualización de Libros & Relatos</h3>
-            <p>Estructura sinopsis profesionales y arcos de personajes para tus obras literarias.</p>
-            <textarea placeholder="Bloqueado para usuarios gratuitos..."></textarea>
-            <button class="btn-action" disabled style="opacity: 0.4;">Función PRO 🔒</button>
-        </div>
-
-    </div>
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 font-sci-fi">
+        GlowUp Studio AI &copy; 2026 — Todos los derechos reservados.
+    </footer>
 
     <script>
-        // Función conectada al servidor seguro para OpenAI (Texto libre)
-        async function generateOpenAIContent() {
-            const prompt = document.getElementById('textPrompt').value.trim();
-            const box = document.getElementById('textOutputBox');
-            const resultText = document.getElementById('textResultText');
-            const btn = document.getElementById('textBtn');
+        function switchTab(tabId) {
+            document.querySelectorAll('.workspace-tab').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('aside button').forEach(el => {
+                el.classList.remove('bg-cyan-950/50', 'cyber-border', 'text-cyan-300');
+                el.classList.add('bg-slate-900/50', 'border-slate-800', 'text-slate-300');
+            });
 
-            if (!prompt) {
-                alert('Por favor, introduce algún concepto o texto.');
-                return;
-            }
-
-            box.style.display = 'block';
-            resultText.innerHTML = '✨ <strong>Consultando a OpenAI:</strong> Procesando tu solicitud...';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
-
-            try {
-                const response = await fetch('/api/generate-text', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt })
-                });
-
-                const data = await response.json();
-
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                resultText.innerHTML = '✨ <strong>Respuesta de OpenAI:</strong><br><br>' + data.text.replace(/\n/g, '<br>');
-
-            } catch (error) {
-                resultText.innerHTML = '❌ <strong>Error de conexión con OpenAI:</strong> ' + error.message;
-            } finally {
-                btn.disabled = false;
-                btn.style.opacity = '1';
+            if (tabId === 'video-engine' || tabId === 'audio-studio') {
+                document.getElementById('tab-pro-locked').classList.remove('hidden');
+                document.getElementById('btn-' + tabId).classList.add('bg-purple-950/40', 'cyber-border-purple', 'text-purple-300');
+            } else {
+                document.getElementById('tab-' + tabId).classList.remove('hidden');
+                document.getElementById('btn-' + tabId).classList.remove('bg-slate-900/50', 'border-slate-800', 'text-slate-300');
+                document.getElementById('btn-' + tabId).classList.add('bg-cyan-950/50', 'cyber-border', 'text-cyan-300');
             }
         }
 
-        // Función para generar imágenes (Libre)
-        async function generateGeminiImage() {
-            const prompt = document.getElementById('imagePrompt').value.trim();
-            const outputBox = document.getElementById('imageOutputBox');
-            const statusText = document.getElementById('imageStatusText');
-            const resultImage = document.getElementById('resultImage');
-            const btn = document.getElementById('imageBtn');
-
-            if (!prompt) {
-                alert('Por favor, describe la imagen que deseas generar.');
+        function generateText() {
+            const prompt = document.getElementById('text-prompt').value;
+            const output = document.getElementById('text-output');
+            if(!prompt) {
+                output.innerText = "Por favor, introduce un prompt válido.";
                 return;
             }
+            output.innerText = "Sintetizando contenido con IA...\n\n[Simulación IA]: Estructurando propuesta para: " + prompt + "\n\n1. Introducción impactante al concepto.\n2. Desarrollo analítico y creativo.\n3. Conclusión optimizada para difusión multimedia.";
+        }
 
-            outputBox.style.display = 'block';
-            statusText.style.display = 'block';
-            resultImage.style.display = 'none';
-            btn.disabled = true;
-            btn.style.opacity = '0.6';
-            statusText.innerText = '🎨 Diseñando composición visual con IA...';
-
-            try {
-                setTimeout(() => {
-                    statusText.style.display = 'none';
-                    resultImage.style.display = 'block';
-                    
-                    const encodedPrompt = encodeURIComponent(prompt);
-                    resultImage.src = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=576&nologo=true`;
-                    
-                }, 1500);
-
-            } catch (error) {
-                statusText.style.color = '#ef4444';
-                statusText.innerText = '❌ Error de generación: ' + error.message;
-            } finally {
-                btn.disabled = false;
-                btn.style.opacity = '1';
+        function generateImage() {
+            const prompt = document.getElementById('image-prompt').value;
+            const output = document.getElementById('image-output');
+            if(!prompt) {
+                output.innerHTML = "Por favor, introduce una descripción visual.";
+                return;
             }
+            const encodedPrompt = encodeURIComponent(prompt);
+            const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}`;
+            output.innerHTML = `<img src="${imageUrl}" alt="Generated Image" class="rounded-xl max-h-[350px] object-contain glow-cyan">`;
         }
     </script>
 </body>
